@@ -10,6 +10,11 @@
   }
 } */
 
+:root {
+  --background: #333333;
+  --foreground: #ffffff;
+}
+
 * {
   line-height: 140%;
   font-family: "Poppins", serif;

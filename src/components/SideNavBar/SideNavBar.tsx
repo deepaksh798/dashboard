@@ -15,6 +15,7 @@ import { IoLogoStackoverflow } from "react-icons/io5";
 
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const SideNavBar = () => {
   const pathname = usePathname(); // Get the current pathname
@@ -27,128 +28,162 @@ const SideNavBar = () => {
       {/* Sidebar */}
       <aside
         className={
-          "h-full bg-[#FAFBFC] text-white transform w-[290px] px-2 select-none border flex flex-col justify-between"
+          "h-full bg-[#141414] transform w-[120px] px-2 select-none flex flex-col justify-between"
         }
       >
-        <div>
-          <div className="p-5 font-bold text-lg ">
-            <Image src="/Logo.png" alt="" height={30} width={160} />
+        <div className="flex flex-col items-center mt-9">
+          <div className="relative h-[30px] w-[33px] p-5 font-bold text-lg ">
+            <Image src="/Logo.png" alt="" fill />
           </div>
-          <div className="text-[#8A99AF] text-base font-semibold mt-8 px-6">
-            MENU
-          </div>
+          <div className="text-[#8A99AF] text-base font-semibold mt-8 px-6"></div>
 
           <nav className="mt-4 text-[16px]">
-            <ul className="text-black">
-              <Link href="">
+            <ul className="text-[#ADADAD] space-y-4">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/home") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/home") ? "bg-[#D7FE66] text-[#141414]" : ""
                   }`}
                 >
-                  <FiHome className="h-[18px] w-[18px]" />
-                  Overview
+                  <Icon
+                    icon="material-symbols:dashboard-rounded"
+                    width="24"
+                    height="24"
+                  />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/user-management") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <FiHeadphones className="h-[18px] w-[18px]" />
-                  Phone
+                  <Icon icon="mdi:headset" width="24" height="24" />
                 </li>
               </Link>
-              <Link href="/assistants">
-                <li
-                  className={`p-2 m-4 flex items-center gap-2 rounded-lg ${
-                    isActive("/assistants")
-                      ? "bg-blue-200"
-                      : "hover:bg-[#EAEBFF]"
-                  }`}
-                >
-                  <RiRobot2Line className="h-[18px] w-[18px]" />
+              <div className="relative group">
+                <Link href="/assistants" className="flex justify-center">
+                  <li
+                    className={`flex items-center justify-center h-11 w-11 rounded-xl ${
+                      isActive("/assistants")
+                        ? "bg-[#D7FE66] text-[#141414]"
+                        : ""
+                    }`}
+                  >
+                    <Icon
+                      icon="fluent:headset-vr-24-filled"
+                      width="24"
+                      height="24"
+                    />
+                  </li>
+                </Link>
+                {/* Tooltip */}
+                <span className="absolute bottom-14 left-1/2 transform -translate-x-1/2 bg-gray-800 text-[#D7FE66] text-sm font-medium px-3 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   Assistants
-                </li>
-              </Link>
-              <Link href="">
+                </span>
+              </div>
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/payment") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <FiHash className="h-[18px] w-[18px]" />
-                  Numbers
+                  <Icon icon="ic:round-contact-page" width="24" height="24" />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed${
-                    isActive("/report") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <IoLogoStackoverflow className="h-[18px] w-[18px]" />
-                  Flows
+                  <Icon
+                    icon="material-symbols-light:flowchart-sharp"
+                    width="24"
+                    height="24"
+                  />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed${
-                    isActive("/setting") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <FiPhoneCall className="h-[18px] w-[18px]" />
-                  Calls
+                  <Icon
+                    icon="mingcute:phone-call-fill"
+                    width="24"
+                    height="24"
+                  />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/setting") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <FaRegCalendarCheck className="h-[18px] w-[18px]" />
-                  Calendar
+                  <Icon icon="uis:calender" width="24" height="24" />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/setting") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <SlCallOut className="h-[18px] w-[18px]" />
-                  Integrations
+                  <Icon
+                    icon="ic:round-integration-instructions"
+                    width="24"
+                    height="24"
+                  />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/setting") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <LuUsers className="h-[18px] w-[18px]" />
-                  Users
+                  <Icon icon="mage:users-fill" width="24" height="24" />
                 </li>
               </Link>
-              <Link href="">
+              <Link href="" className="flex justify-center">
                 <li
-                  className={`text-[#666666] p-2 m-4 flex items-center gap-2 rounded-lg cursor-not-allowed ${
-                    isActive("/setting") ? "bg-[#EAEBFF]" : ""
+                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
+                    isActive("/user-management")
+                      ? "bg-[#D7FE66] text-[#141414]"
+                      : ""
                   }`}
                 >
-                  <RiSettings3Line className="h-[18px] w-[18px]" />
-                  Settings
+                  <Icon icon="weui:setting-filled" width="24" height="24" />
                 </li>
               </Link>
             </ul>
           </nav>
         </div>
-        <div>
-          <Button className="w-full mb-8 bg-slate-300 hover:bg-slate-400 text-black font-semibold text-base h-12">
-            <MdLogout className="h-10 w-10" /> Logout
-          </Button>
+        <div className="flex justify-center items-center">
+          <div className=" text-white flex justify-center items-center bg-[#333333] mb-9 h-11 w-11 rounded-xl">
+            <Icon
+              icon="material-symbols:logout-rounded"
+              width="24"
+              height="24"
+            />
+          </div>
         </div>
       </aside>
     </>

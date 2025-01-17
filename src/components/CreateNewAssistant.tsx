@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { assistantSchema } from "@/lib/validationSchema";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Props = {
   open: boolean;
@@ -69,13 +70,16 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={handleCloseDialog}>
-      <DialogContent>
+      <DialogContent className="flex flex-col items-center text-white bg-[#414141] border-none max-w-[700px]">
         <DialogHeader>
           <DialogTitle>Create New Assistant</DialogTitle>
         </DialogHeader>
-        <form onSubmit={formik.handleSubmit} className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="w-[100px] h-[100px] rounded-lg bg-[#8848ff] text-white flex items-center justify-center">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="flex flex-col gap-6 items-center w-full"
+        >
+          <div className="relative ">
+            <div className="w-[100px] h-[100px] rounded-3xl bg-[#616161] text-white flex items-center justify-center overflow-hidden">
               {imagePreview ? (
                 <img
                   src={imagePreview}
@@ -83,17 +87,36 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
                   className="w-full h-full object-cover rounded-lg"
                 />
               ) : (
-                <span>AN</span>
+                <span className="flex flex-col items-center text-[#D7FE66]">
+                  {formik.values.name ? (
+                    formik.values.name
+                      .split(" ")
+                      .map((word: any | null) => word[0])
+                      .join("")
+                      .toUpperCase()
+                  ) : (
+                    <>
+                      <Icon
+                        icon="mdi:image-add-outline"
+                        width="24"
+                        height="24"
+                      />
+                      <div className="underline underline-offset-2 text-sm">
+                        Add Profile
+                      </div>
+                    </>
+                  )}
+                </span>
               )}
             </div>
-            <Input
+            <input
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="w-full"
+              className="absolute inset-0 opacity-0 cursor-pointer"
             />
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Label>Your Name</Label>
             <Input
               name="name"
@@ -105,7 +128,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               <div className="text-red-500 text-sm">{formik.errors.name}</div>
             )}
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Label>Your Agent</Label>
             <Input
               name="yourAgent"
@@ -119,7 +142,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               </div>
             )}
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Label>Knowledge Base</Label>
             <Textarea
               name="knowledgeBase"
@@ -128,7 +151,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               onChange={formik.handleChange}
             />
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Label>Select Language</Label>
             <Select
               value={formik.values.language}
@@ -143,7 +166,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Label>Greetings</Label>
             <Input
               name="greetings"
@@ -152,7 +175,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               onChange={formik.handleChange}
             />
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Label>Farewell</Label>
             <Input
               name="farewell"
@@ -161,10 +184,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               onChange={formik.handleChange}
             />
           </div>
-          <Button
-            type="submit"
-            className="w-full bg-[#4C10BC] hover:bg-[#661EEB]"
-          >
+          <Button type="submit" className="w-full rounded-full h-10">
             Save Assistant
           </Button>
         </form>

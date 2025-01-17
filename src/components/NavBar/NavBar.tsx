@@ -28,7 +28,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full h-full border-b border-[#E5E5E5] p-2 px-8 flex justify-between select-none">
+    <div className="w-full h-full bg-[#141414] p-3 px-8 flex justify-between select-none">
       <div className="relative w-[366px] h-full flex items-center">
         <span className="absolute left-[10px]">
           <Icon
@@ -42,26 +42,30 @@ const NavBar = () => {
           type="text"
           id="text"
           placeholder="Search Something"
-          className="h-full bg-[#F4F0FB] border-none pl-10"
+          className="h-full bg-[#333333] border-none pl-10"
         />
       </div>
       <div className="flex gap-8">
-        <div className="max-w-[178px] h-full">
-          <Button className="h-full">Create Campaign</Button>
+        <div className="h-full flex items-center text-[#8F8F8F]">
+          <Icon icon="clarity:notification-line" width="24" height="24" />
         </div>
         <div className="flex items-center">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild className="hover:bg-[#333333]">
               <Button className="p-0 border-none" variant="outline">
                 <img
                   src={
-                    "https://images.unsplash.com/photo-1641601324392-fb29e2ed9839?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   }
                   alt="user-profile"
-                  className="h-9 w-9 rounded-full object-cover"
+                  className="h-9 w-9 rounded-full object-cover object-top"
                 />
-
-                <TiArrowSortedDown />
+                <Icon
+                  icon="eva:arrow-down-fill"
+                  width="24"
+                  height="24"
+                  className="text-[#8F8F8F]"
+                />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">

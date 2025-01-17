@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import SideNavBar from "./SideNavBar/SideNavBar";
 import { usePathname, useRouter } from "next/navigation";
+import NavBar from "./NavBar/NavBar";
 
 interface Props {
   children: ReactNode;
@@ -40,12 +41,12 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   return (
     <div className="h-screen flex select-none">
-      {/* <SideNavBar /> */}
+      <SideNavBar />
       <div className="flex-1 flex flex-col">
-        {/* <div>
-            <NavBar />
-          </div> */}
-        <div className="p-8 flex-1 bg-[#FAFBFC] overflow-y-auto">
+        <div>
+          <NavBar />
+        </div>
+        <div className="p-8 flex-1 overflow-y-auto bg-[#333333]">
           {children}
         </div>
       </div>
