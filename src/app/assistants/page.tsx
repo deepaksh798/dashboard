@@ -9,6 +9,8 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import ChatDialog from "@/components/ChatDialog";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { LuPlus } from "react-icons/lu";
+import { useAppDispatch, useAppSelector } from "@/lib/Redux/Hook/hook";
+import { fetchData } from "@/lib/Redux/Slice/cardDataSlice";
 
 const Assistants = () => {
   const [openForm, setOpenForm] = useState(false);
@@ -16,34 +18,44 @@ const Assistants = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [currentAssistant, setCurrentAssistant] = useState<any>(null);
 
+  // const fetchAssistants = async () => {
+  //   try {
+  //     const assistantsQuery = query(
+  //       collection(db, "assistants"),
+  //       orderBy("created_at", "desc")
+  //     );
+  //     const querySnapshot = await getDocs(assistantsQuery);
+
+  //     const assistantsList: any[] = [];
+  //     querySnapshot.forEach((doc) => {
+  //       assistantsList.push({ id: doc.id, ...doc.data() });
+  //     });
+  //     setAssistants(assistantsList);
+  //   } catch (error) {
+  //     console.error("Error fetching assistants: ", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchAssistants();
+  // }, []);
+
+  const dispatch = useAppDispatch();
+  const { data } = useAppSelector((state) => state.cardData);
+
   const fetchAssistants = async () => {
-    try {
-      const assistantsQuery = query(
-        collection(db, "assistants"),
-        orderBy("created_at", "desc")
-      );
-      const querySnapshot = await getDocs(assistantsQuery);
-
-      const assistantsList: any[] = [];
-      querySnapshot.forEach((doc) => {
-        assistantsList.push({ id: doc.id, ...doc.data() });
-      });
-      setAssistants(assistantsList);
-    } catch (error) {
-      console.error("Error fetching assistants: ", error);
-    }
+    dispatch(fetchData());
   };
-
   useEffect(() => {
     fetchAssistants();
-  }, []);
-
-  console.log("cirr_assistant==>", currentAssistant);
+  });
 
   const handleTestCall = (assistant: any) => {
     setCurrentAssistant(assistant);
     setOpenDialog(true);
   };
+
+  // console.log("voice-->", data[1]?.voice);
 
   return (
     <div className="text-white">
@@ -58,8 +70,8 @@ const Assistants = () => {
         </Button>
       </div>
 
-      <div className="flex flex-wrap gap-6">
-        {assistants.map((assistant, index) => (
+      {/* <div className="flex flex-wrap gap-6">
+        {data.map((assistant, index) => (
           <div
             key={index}
             className="w-[360px] h-auto bg-[#414141] hover:bg-[#6e6e6e] p-6 space-y-4 rounded-lg"
@@ -70,10 +82,10 @@ const Assistants = () => {
                   {assistant.image ? (
                     <Image
                       // src={URL.createObjectURL(assistant.image)}
-                      src={assistant.image}
+                      src={assistant?.image}
                       height={64}
                       width={64}
-                      alt={assistant.name || "Assistant"}
+                      alt={assistant?.name || "Assistant"}
                       className="object-cover w-full h-full"
                     />
                   ) : (
@@ -89,7 +101,7 @@ const Assistants = () => {
                 <div className="">
                   <h2 className="text-xl font-medium">{assistant.name}</h2>
                   <span className="text-sm font-medium text-[#BEBEBE]">
-                    {assistant.yourAgent}
+                    {assistant.your_agent}
                   </span>
                 </div>
               </div>
@@ -111,7 +123,7 @@ const Assistants = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <ChatDialog
         open={openDialog}
