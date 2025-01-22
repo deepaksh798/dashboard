@@ -74,6 +74,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
         <DialogHeader>
           <DialogTitle>Create New Assistant</DialogTitle>
         </DialogHeader>
+        {/* <div className=" overflow-y-auto h-[80vh] w-full"> */}
         <form
           onSubmit={formik.handleSubmit}
           className="flex flex-col gap-6 items-center w-full"
@@ -188,6 +189,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
             Save Assistant
           </Button>
         </form>
+        {/* </div> */}
       </DialogContent>
     </Dialog>
   );

@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { RiVoiceprintFill } from "react-icons/ri";
 import CreateNewAssistant from "@/components/CreateNewAssistant";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { IoIosSearch } from "react-icons/io";
-import { LuPlus } from "react-icons/lu";
 import { db } from "@/lib/firebase/firebaseConfig";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import ChatDialog from "@/components/ChatDialog";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { LuPlus } from "react-icons/lu";
 
 const Assistants = () => {
   const [openForm, setOpenForm] = useState(false);
   const [assistants, setAssistants] = useState<any[]>([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentAssistant, setCurrentAssistant] = useState<any>(null);
 
   const fetchAssistants = async () => {
     try {
@@ -28,7 +28,7 @@ const Assistants = () => {
       querySnapshot.forEach((doc) => {
         assistantsList.push({ id: doc.id, ...doc.data() });
       });
-      setAssistants(assistantsList); // Store the fetched assistants in state
+      setAssistants(assistantsList);
     } catch (error) {
       console.error("Error fetching assistants: ", error);
     }
@@ -38,25 +38,17 @@ const Assistants = () => {
     fetchAssistants();
   }, []);
 
-  const handleCreateAssistant = () => {
-    setOpenForm(false); // Close the form after submission
-    fetchAssistants();
+  console.log("cirr_assistant==>", currentAssistant);
+
+  const handleTestCall = (assistant: any) => {
+    setCurrentAssistant(assistant);
+    setOpenDialog(true);
   };
 
   return (
-    <div className="container mx-auto text-white">
+    <div className="text-white">
       <div className="flex justify-between my-10">
         <h1 className="text-2xl font-semibold mb-6">Assistants</h1>
-        {/* <div className="relative w-[366px] h-full flex items-center mb-8 border rounded-lg">
-          <span className="absolute left-[10px]">
-            <IoIosSearch />
-          </span>
-          <Input
-            type="text"
-            placeholder="Search Something"
-            className="h-full border-none pl-10 py-3"
-          />
-        </div> */}
         <Button
           className="flex h-11 rounded-full"
           onClick={() => setOpenForm(true)}
@@ -65,6 +57,7 @@ const Assistants = () => {
           Create New
         </Button>
       </div>
+
       <div className="flex flex-wrap gap-6">
         {assistants.map((assistant, index) => (
           <div
@@ -109,15 +102,27 @@ const Assistants = () => {
               </div>
             </div>
             <div className="flex justify-between">
-              <Button className=" w-full h-12 rounded-full">Test Call</Button>
+              <Button
+                className=" w-full h-12 rounded-full"
+                onClick={() => handleTestCall(assistant)}
+              >
+                Test Call
+              </Button>
             </div>
           </div>
         ))}
       </div>
+
+      <ChatDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        assistant={currentAssistant}
+      />
+
       <CreateNewAssistant
         open={openForm}
         onClose={() => setOpenForm(false)}
-        afterSubmit={handleCreateAssistant}
+        afterSubmit={fetchAssistants}
       />
     </div>
   );

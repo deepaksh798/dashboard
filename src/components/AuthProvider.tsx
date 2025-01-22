@@ -13,23 +13,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   // const [isAuthenticated, setIsAuthenticated] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
-  // const token = Cookies.get("password");
-
-  // useEffect(() => {
-  //   if (true) {
-  //     setIsAuthenticated(true);
-  //     if (pathname?.includes("/") || pathname === "/") {
-  //       router.push("/assistants");
-  //     } else {
-  //       router.push(pathname);
-  //     }
-  //   } else {
-  //     setIsAuthenticated(false);
-  //     router.push("/login");
-  //   }
-  // }, [router]);
-
-  // console.log("cookie -> ", token);
 
   useEffect(() => {
     if (pathname === "/") {
