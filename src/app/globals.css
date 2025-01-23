@@ -24,15 +24,30 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-/* scrollbar */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+
+/* Target the scrollbar container */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar (horizontal) */
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+/* Target the scrollbar track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
 }
+
+/* Target the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 6px;
+}
+
+/* Hover effect for the scrollbar thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 
 
 @layer base {
@@ -98,4 +113,61 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Calendar Css */
+
+.fc-scrollgrid {
+  border: none !important;
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+  border: none;
+}
+
+/* fc-theme-standard td, .fc-theme-standard th */
+.fc-day {
+  background-color: transparent !important;
+  padding: 5px !important;
+}
+
+.fc-daygrid-day-frame {
+  background-color: #595959;
+  border-radius: 10px;
+}
+
+
+
+/* /////// */
+/* Remove borders from the day boxes */
+.fc-daygrid-day-frame {
+  border: none;
+}
+
+/* Add 10px border-radius to the day boxes */
+.fc-daygrid-day {
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 5px; 
+}
+
+/* Customize events with rounded corners and padding */
+.fc-event {
+  background-color: #D7FE66 !important;
+  color: black ;
+  border-radius: 10px;
+  padding: 2px 5px;
+  font-size: 12px;
+}
+
+/* meeting */
+.fc-daygrid-event-harness {
+  padding-right: 8px !important;
+  padding-left: 8px !important;
+}
+
+/* Highlight today’s date with a custom background */
+.fc-day-today {
+  background-color: #D7FE66 !important;
+  border-radius: 10px ;
 }

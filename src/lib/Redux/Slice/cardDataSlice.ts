@@ -16,7 +16,7 @@ const initialState: CardDataState = {
 // Async thunk to fetch data from the API
 export const fetchData = createAsyncThunk("data/fetchData", async () => {
   const response = await axios.get(
-    "https://4c60-2401-4900-1c08-79c1-4907-5d46-3ebb-54c1.ngrok-free.app/all/assistant",
+    "https://f2de-2401-4900-1c08-79c1-acee-4bca-b441-3b3.ngrok-free.app/all/assistant",
     {
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const createAssistant = createAsyncThunk(
     language: string;
   }) => {
     const response = await axios.post(
-      "https://b289-2401-4900-1c08-79c1-99d1-5ad-5604-301c.ngrok-free.app/create/assistant",
+      "https://f2de-2401-4900-1c08-79c1-acee-4bca-b441-3b3.ngrok-free.app/create/assistant",
       assistant,
       {
         headers: {

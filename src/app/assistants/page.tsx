@@ -12,30 +12,15 @@ import { fetchData } from "@/lib/Redux/Slice/cardDataSlice";
 
 const Assistants = () => {
   const [openForm, setOpenForm] = useState(false);
-  const [assistants, setAssistants] = useState<any[]>([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [currentAssistant, setCurrentAssistant] = useState<any>(null);
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.cardData);
-  const [cardData, setCardData] = useState<any>([
-    {
-      name: "maria",
-      // image: "",
-      your_agent: "qwe",
-      voice: {
-        voice_id: "micheal",
-      },
-    },
-  ]);
-  // console.log("Card-data", cardData);
-
-  const fetchAssistants = async () => {
-    dispatch(fetchData());
-  };
+  const { data } = useAppSelector((state) => state.cardData);
   useEffect(() => {
-    fetchAssistants();
-  });
+    dispatch(fetchData());
+  }, [dispatch]);
 
+  //Handle test call
   const handleTestCall = (assistant: any) => {
     setCurrentAssistant(assistant);
     setOpenDialog(true);
@@ -57,7 +42,7 @@ const Assistants = () => {
       </div>
 
       <div className="flex flex-wrap gap-6">
-        {cardData.map((assistant: any, index: any) => (
+        {data.map((assistant: any, index: any) => (
           <div
             key={index}
             className="w-[360px] h-auto bg-[#414141] hover:bg-[#6e6e6e] p-6 space-y-4 rounded-lg"
@@ -76,7 +61,7 @@ const Assistants = () => {
                     />
                   ) : (
                     <span className="text-[#333333]">
-                      {assistant.name
+                      {assistant?.name
                         ?.split(" ")
                         .map((word: any) => word[0])
                         .join("")
@@ -85,7 +70,7 @@ const Assistants = () => {
                   )}
                 </div>
                 <div className="">
-                  <h2 className="text-xl font-medium">{assistant.name}</h2>
+                  <h2 className="text-xl font-medium">{assistant?.name}</h2>
                   <span className="text-sm font-medium text-[#BEBEBE]">
                     {assistant?.your_agent}
                   </span>
@@ -95,7 +80,7 @@ const Assistants = () => {
             <div className="flex items-center gap-3">
               <div className="font-medium text-[16px]">Agent:</div>
               <div className="flex items-center gap-[10px] text-[#D7FE66]">
-                <span className="text-lg">{assistant.voice.voice_id}</span>
+                <span className="text-lg">{assistant?.voice?.voice_id}</span>
                 <Icon icon="mynaui:play-waves-solid" width="24" height="24" />
               </div>
             </div>
@@ -120,7 +105,7 @@ const Assistants = () => {
       <CreateNewAssistant
         open={openForm}
         onClose={() => setOpenForm(false)}
-        afterSubmit={fetchAssistants}
+        afterSubmit={() => dispatch(fetchData())}
       />
     </div>
   );

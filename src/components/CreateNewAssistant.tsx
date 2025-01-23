@@ -1,6 +1,6 @@
 "use client";
 
-import { handleSubmit } from "@/lib/firebase/handleSubmit";
+// import { handleSubmit } from "@/lib/firebase/handleSubmit";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import {
@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/select";
 import { assistantSchema } from "@/lib/validationSchema";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useAppDispatch } from "@/lib/Redux/Hook/hook";
+import { createAssistant } from "@/lib/Redux/Slice/cardDataSlice";
 
 type Props = {
   open: boolean;
@@ -31,6 +33,7 @@ type Props = {
 
 const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -44,8 +47,21 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
       farewell: "",
     },
     validationSchema: assistantSchema,
-    onSubmit: (values) => {
-      handleSubmit(values);
+    onSubmit: async (values) => {
+      console.log("Assistent-values", values);
+      const assistantData = {
+        name: values.name,
+        your_agent: values.yourAgent,
+        description: values.knowledgeBase,
+        language: values.language,
+        voice: values.voice,
+        first_message: values.greetings,
+        end_call_message: values.farewell,
+      };
+      console.log("Final-values", assistantData);
+
+      await dispatch(createAssistant(assistantData));
+      // handleSubmit(values);
       formik.resetForm();
       onClose();
       afterSubmit();
@@ -70,7 +86,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={handleCloseDialog}>
-      <DialogContent className="no-scrollbar flex flex-col items-center rounded-lg text-white bg-[#414141] border-none max-w-[700px] h-[90vh] overflow-y-scroll">
+      <DialogContent className="no-scrollbar flex flex-col items-center justify-center rounded-lg text-white bg-[#414141] border-none max-w-[700px] h-[90vh] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Create New Assistant</DialogTitle>
         </DialogHeader>
@@ -79,6 +95,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
           onSubmit={formik.handleSubmit}
           className="flex flex-col gap-6 items-center w-full"
         >
+          {/* Image input */}
           <div className="relative ">
             <div className="w-[100px] h-[100px] rounded-3xl bg-[#616161] text-white flex items-center justify-center overflow-hidden">
               {imagePreview ? (
@@ -117,32 +134,38 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               className="absolute inset-0 opacity-0 cursor-pointer"
             />
           </div>
-          <div className="space-y-4 w-full">
-            <Label>Your Name</Label>
-            <Input
-              name="name"
-              placeholder="Assistant Name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.name && formik.errors.name && (
-              <div className="text-red-500 text-sm">{formik.errors.name}</div>
-            )}
+          <div className="flex gap-6 w-full">
+            {/* Name input */}
+            <div className="space-y-4 w-full">
+              <Label>Your Name</Label>
+              <Input
+                name="name"
+                placeholder="Assistant Name"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+              />
+              {formik.touched.name && formik.errors.name && (
+                <div className="text-red-500 text-sm">{formik.errors.name}</div>
+              )}
+            </div>
+
+            {/* Agent input */}
+            <div className="space-y-4 w-full">
+              <Label>Your Agent</Label>
+              <Input
+                name="yourAgent"
+                placeholder="Agent Type"
+                value={formik.values.yourAgent}
+                onChange={formik.handleChange}
+              />
+              {formik.touched.yourAgent && formik.errors.yourAgent && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.yourAgent}
+                </div>
+              )}
+            </div>
           </div>
-          <div className="space-y-4 w-full">
-            <Label>Your Agent</Label>
-            <Input
-              name="yourAgent"
-              placeholder="Agent Type"
-              value={formik.values.yourAgent}
-              onChange={formik.handleChange}
-            />
-            {formik.touched.yourAgent && formik.errors.yourAgent && (
-              <div className="text-red-500 text-sm">
-                {formik.errors.yourAgent}
-              </div>
-            )}
-          </div>
+          {/* knowledge input */}
           <div className="space-y-4 w-full">
             <Label>Knowledge Base</Label>
             <Textarea
@@ -152,6 +175,8 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               onChange={formik.handleChange}
             />
           </div>
+          {/* ////// */}
+          {/* Language input */}
           <div className="space-y-4 w-full">
             <Label>Select Language</Label>
             <Select
@@ -167,24 +192,32 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-4 w-full">
-            <Label>Greetings</Label>
-            <Input
-              name="greetings"
-              placeholder="Starting words"
-              value={formik.values.greetings}
-              onChange={formik.handleChange}
-            />
+
+          <div className="flex gap-6 w-full">
+            {/* Greetings input */}
+            <div className="space-y-4 w-full">
+              <Label>Greetings</Label>
+              <Input
+                name="greetings"
+                placeholder="Starting words"
+                value={formik.values.greetings}
+                onChange={formik.handleChange}
+              />
+            </div>
+
+            {/* Farewell input */}
+            <div className="space-y-4 w-full">
+              <Label>Farewell</Label>
+              <Input
+                name="farewell"
+                placeholder="Ending words"
+                value={formik.values.farewell}
+                onChange={formik.handleChange}
+              />
+            </div>
           </div>
-          <div className="space-y-4 w-full">
-            <Label>Farewell</Label>
-            <Input
-              name="farewell"
-              placeholder="Ending words"
-              value={formik.values.farewell}
-              onChange={formik.handleChange}
-            />
-          </div>
+
+          {/* Submit button */}
           <Button type="submit" className="w-full rounded-full h-10">
             Save Assistant
           </Button>

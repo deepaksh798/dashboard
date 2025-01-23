@@ -5,17 +5,16 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 export default function Calendar() {
   const events = [{ title: "Meeting", start: new Date() }];
+
   return (
-    <div>
-      <div className="text-white">
-        <FullCalendar
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          weekends={false}
-          events={events}
-          //   eventContent={renderEventContent}
-        />
-      </div>
+    <div className="text-white">
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        events={events}
+        // Optionally, you can set some additional FullCalendar options here
+        dayCellClassNames={() => "bg-gray-100"} // Example Tailwind class for day cells
+      />
     </div>
   );
 }
