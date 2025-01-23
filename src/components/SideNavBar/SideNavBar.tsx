@@ -1,20 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FiHome } from "react-icons/fi";
-import { FiPhoneCall } from "react-icons/fi";
-import { RiRobot2Line } from "react-icons/ri";
-import { FiHash } from "react-icons/fi";
-import { FiHeadphones } from "react-icons/fi";
-import { FaRegCalendarCheck } from "react-icons/fa";
-import { SlCallOut } from "react-icons/sl";
-import { LuUsers } from "react-icons/lu";
-import { RiSettings3Line } from "react-icons/ri";
-import { MdLogout } from "react-icons/md";
-import { IoLogoStackoverflow } from "react-icons/io5";
-
 import { usePathname } from "next/navigation";
-import { Button } from "../ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const SideNavBar = () => {
@@ -125,17 +112,24 @@ const SideNavBar = () => {
                   />
                 </li>
               </Link>
-              <Link href="" className="flex justify-center">
-                <li
-                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
-                    isActive("/user-management")
-                      ? "bg-[#D7FE66] text-[#141414]"
-                      : ""
-                  }`}
-                >
-                  <Icon icon="uis:calender" width="24" height="24" />
-                </li>
-              </Link>
+              {/* //// */}
+
+              <div className="relative group">
+                <Link href="/calendar" className="flex justify-center">
+                  <li
+                    className={`flex items-center justify-center h-11 w-11 rounded-xl ${
+                      isActive("/calendar") ? "bg-[#D7FE66] text-[#141414]" : ""
+                    }`}
+                  >
+                    <Icon icon="uis:calender" width="24" height="24" />
+                  </li>
+                </Link>
+                {/* Tooltip */}
+                <span className="absolute bottom-14 left-1/2 transform -translate-x-1/2 bg-gray-800 text-[#D7FE66] text-sm font-medium px-3 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  Calendar
+                </span>
+              </div>
+              {/* ///// */}
               <Link href="" className="flex justify-center">
                 <li
                   className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
