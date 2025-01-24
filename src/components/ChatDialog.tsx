@@ -101,7 +101,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={() => handleStopCall()}>
       <DialogContent>
         <DialogTitle className="text-white">
           Chat with {assistant?.name}
