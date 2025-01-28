@@ -11,6 +11,20 @@ import { useAppDispatch, useAppSelector } from "@/lib/Redux/Hook/hook";
 import { fetchData } from "@/lib/Redux/Slice/cardDataSlice";
 
 const Assistants = () => {
+  const [cardData, setCardData] = useState<any[]>([
+    {
+      image: "",
+      name: "Rajat Saraswat",
+      yourAgent: "Developer",
+      voice: "emily",
+    },
+    {
+      image: "",
+      name: "Deepak",
+      yourAgent: "Developer",
+      voice: "james",
+    },
+  ]);
   const [openForm, setOpenForm] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [currentAssistant, setCurrentAssistant] = useState<any>(null);
@@ -29,7 +43,7 @@ const Assistants = () => {
   // console.log("voice-->", data[1]?.voice);
 
   return (
-    <div className="text-white">
+    <div className="p-8 text-white">
       <div className="flex justify-between my-10">
         <h1 className="text-2xl font-semibold mb-6">Assistants</h1>
         <Button
@@ -42,7 +56,7 @@ const Assistants = () => {
       </div>
 
       <div className="flex flex-wrap gap-6">
-        {data.map((assistant: any, index: any) => (
+        {cardData.map((assistant: any, index: any) => (
           <div
             key={index}
             className="w-[360px] h-auto bg-[#414141] hover:bg-[#6e6e6e] p-6 space-y-4 rounded-lg"

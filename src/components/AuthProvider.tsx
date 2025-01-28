@@ -29,9 +29,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         <div>
           <NavBar />
         </div>
-        <div className="p-8 flex-1 overflow-y-auto bg-[#333333]">
-          {children}
-        </div>
+        <div className=" flex-1 overflow-y-auto bg-[#333333]">{children}</div>
       </div>
     </div>
   );

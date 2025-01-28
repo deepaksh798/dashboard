@@ -2,8 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import vapi from "@/lib/vapi";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import Lottie from "react-lottie";
+import animationData from "../../public/lottie.json";
+import { useAppDispatch } from "@/lib/Redux/Hook/hook";
 
 interface ChatDialogProps {
   open: boolean;
@@ -17,40 +20,34 @@ const ChatDialog: React.FC<ChatDialogProps> = ({
   assistant,
 }) => {
   const [callStatus, setCallStatus] = useState("Disconnected");
-  const [chatLog, setChatLog] = useState<string[]>([]);
-  const [isListening, setIsListening] = useState(false);
-
-  console.log("assistant==>", assistant);
+  const [appointmentDetails, setAppointmentDetails] = useState<{
+    name: string | null;
+    purpose: string | null;
+    dateTime: string | null;
+  }>({
+    name: null,
+    purpose: null,
+    dateTime: null,
+  });
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (open) {
       handleStartCall();
     }
-    return () => {
-      if (open) {
-        handleStopCall();
-      }
-    };
   }, [open]);
 
-  // handle Start Call
+  // Handle Start call
   const handleStartCall = async () => {
     try {
       setCallStatus("Connecting...");
-      vapi.start("7b906e60-7542-4dd1-ad92-a4ca65866793");
+      vapi.start("b091c4fe-079e-479c-83a6-89a3fad5fac4");
       setCallStatus("Connected");
 
       vapi.on("call-start", () => setCallStatus("Call Started"));
       vapi.on("call-end", () => setCallStatus("Call Ended"));
       vapi.on("message", (message) => {
-        if (
-          message.type === "add-message" &&
-          message.message.role === "assistant"
-        ) {
-          const response = message.message.content;
-          setChatLog((prev) => [...prev, `Assistant: ${response}`]);
-          speakText(response);
-        }
+        console.log("Received message from VAPI:", message.transcript);
       });
       vapi.on("error", (e) => {
         console.error("VAPI Error:", e);
@@ -61,64 +58,67 @@ const ChatDialog: React.FC<ChatDialogProps> = ({
       setCallStatus("Error");
     }
   };
-
+  //Handle Stop Call
   const handleStopCall = () => {
+    console.log("Stopping the call...");
     vapi.stop();
     setCallStatus("Disconnected");
     onClose();
   };
 
-  const startListening = () => {
-    const recognition = new ((window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition)();
-    recognition.lang = "en-US";
-    recognition.interimResults = false;
-
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      setChatLog((prev) => [...prev, `You: ${transcript}`]);
-      vapi.send({
-        type: "add-message",
-        message: {
-          role: "user",
-          content: transcript,
-        },
-      });
-    };
-
-    recognition.start();
-  };
-
-  const speakText = (text: string) => {
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = "en-US";
-    speech.pitch = 1;
-    speech.rate = 1;
-    window.speechSynthesis.speak(speech);
+  // lottie animation
+  const options = {
+    loop: true,
+    autoplay: true, // Change to false if you don't want auto play
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
 
   return (
     <Dialog open={open} onOpenChange={() => handleStopCall()}>
-      <DialogContent>
-        <DialogTitle className="text-white">
-          Chat with {assistant?.name}
-        </DialogTitle>
-        <div className="flex flex-col gap-4">
-          <div className="text-white">Status: {callStatus}</div>
-          <div className="chat-log bg-[#333] p-4 rounded-lg h-64 overflow-y-auto">
-            {chatLog.map((msg, idx) => (
-              <div key={idx} className="text-white mb-2">
-                {msg}
-              </div>
-            ))}
+      <DialogContent className="bg-[#414141] border-none">
+        <div className="flex flex-col items-center gap-4 h-full max-h-[500px]">
+          <div className="flex flex-col gap-2">
+            <div className="w-[88px] h-20 bg-[#D7FE66] rounded-xl flex justify-center items-center">
+              <Icon icon="solar:user-bold" width="34" height="34" />
+            </div>
+            <span className="text-[#D7FE66] font-normal flex items-center gap-2">
+              {assistant?.name}
+              <Icon icon="mynaui:play-waves-solid" width="24" height="24" />
+            </span>
           </div>
-          <Button onClick={startListening} disabled={isListening}>
-            {isListening ? "Listening..." : "Talk"}
-          </Button>
-          <Button onClick={handleStopCall}>End Call</Button>
+          {/* call animation */}
+          <div>
+            <Lottie options={options} height={200} width={200} />
+          </div>
+          {/* call status */}
+          <div
+            className={`h-8 w-full max-w-[157px] border flex items-center gap-2 text-[#D7FE66] border-[#D7FE66] rounded-full justify-center`}
+          >
+            <Icon icon="material-symbols:call" width="24" height="24" />
+            {callStatus}
+          </div>
+          {/* calling options */}
+          <div className="text-white w-full max-w-[278px] h-[60px] bg-[#585858] rounded-full flex items-center justify-evenly">
+            <div className="bg-[#E08A00] h-[30px] w-[30px] rounded-full flex justify-center items-center cursor-pointer">
+              {true ? (
+                <Icon icon="mingcute:volume-fill" width="12" height="12" />
+              ) : (
+                <Icon icon="streamline:volume-off" width="12" height="12" />
+              )}
+            </div>
+            <div className="h-[40px] w-[40px] bg-gradient-to-r from-[#666666] via-[#a5a4a4] to-[#666666] rounded-full flex justify-center items-center cursor-pointer">
+              <Icon icon="material-symbols:mic" width="17" height="17" />
+            </div>
+            <div
+              className="bg-[#EB0000] h-[30px] w-[30px] rounded-full flex justify-center items-center cursor-pointer"
+              onClick={handleStopCall}
+            >
+              <Icon icon="maki:cross" width="12" height="12" />
+            </div>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

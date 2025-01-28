@@ -86,7 +86,7 @@ const CreateNewAssistant = ({ open, onClose, afterSubmit }: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={handleCloseDialog}>
-      <DialogContent className="no-scrollbar flex flex-col items-center justify-center rounded-lg text-white bg-[#414141] border-none max-w-[700px] h-[90vh] overflow-y-scroll">
+      <DialogContent className="no-scrollbar flex flex-col items-center justify-center rounded-lg text-white bg-[#414141] border-none max-w-[700px] h-[90vh] overflow-auto">
         <DialogHeader>
           <DialogTitle>Create New Assistant</DialogTitle>
         </DialogHeader>
