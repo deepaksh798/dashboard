@@ -44,12 +44,22 @@ export async function POST(req: NextRequest) {
 }
 
 //GET Request
+
 export async function GET(req: NextRequest) {
   try {
-    return Response.json({
-      // data: dict[callId],
-      messsage: "This is a default response",
-      data: dict["id"],
+    if (!dict.hasOwnProperty("id")) {
+      return NextResponse.json(
+        { error: "Key 'id' not found in the dictionary" },
+        { status: 404 }
+      );
+    }
+
+    const appointmentData = dict["id"];
+    delete dict["id"];
+
+    return NextResponse.json({
+      message: "Appointment data retrieved successfully",
+      data: appointmentData,
     });
   } catch (error) {
     console.error("Error handling request:", error);

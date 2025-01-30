@@ -56,8 +56,17 @@ const AIAssistant = ({
   };
   const handleCallMute = () => {
     const newMuteState = !callMute;
+    console.log("newMuteState-------------->", newMuteState);
+
     setCallMute(newMuteState);
-    vapi.setMuted(newMuteState);
+    if (newMuteState) {
+      console.log("muting");
+
+      vapi.setMuted(false);
+    } else {
+      console.log("Un-muting");
+      vapi.setMuted(true);
+    }
   };
   // lottie animation
   const options = {
@@ -69,15 +78,14 @@ const AIAssistant = ({
     },
   };
   return (
-    <div className="flex flex-col justify-between h-full w-full bg-[#141414]/30 backdrop-blur-lg p-[60px]">
-      <div className="flex flex-col items-center">
-        <div className="flex justify-center items-center w-[376px] bg-[#D7FE66]/60 h-[337px] rounded-3xl">
-          <div className="relative h-[268px] w-[264px] bg-[#D7FE66] rounded-3xl">
-            <Image src="/call_agent.png" alt="call-agent" fill />
-          </div>
+    <div className="flex flex-col items-center justify-between h-full w-full bg-[#141414]/30 backdrop-blur-lg p-[60px]">
+      {/* <div className="flex flex-col items-center"> */}
+      <div className="flex justify-center items-center w-[376px] bg-[#D7FE66]/60 h-[337px] rounded-3xl">
+        <div className="relative h-[268px] w-[264px] bg-[#D7FE66] rounded-3xl">
+          <Image src="/call_agent.png" alt="call-agent" fill />
         </div>
-        <div className="mt-2">status: {callStatus}</div>
       </div>
+
       <div>
         <Lottie
           options={options}
@@ -87,10 +95,24 @@ const AIAssistant = ({
           width={200}
         />
       </div>
+      <div
+        className={`border py-1 px-3 rounded-full flex gap-2 text-[16px] w-fit ${
+          ["Call Started", "Connected"].includes(callStatus)
+            ? "border-[#1FFF18] text-[#1FFF18]"
+            : callStatus === "Connecting..."
+            ? "border-[#FFD700] text-[#FFD700]"
+            : ["Disconnected", "Error", "Call Ended"].includes(callStatus)
+            ? "border-[#FF0000] text-[#FF0000]"
+            : "border-[#FFFFFF] text-[#FFFFFF]"
+        }`}
+      >
+        <Icon icon="material-symbols:call" width="24" height="24" />
+        {callStatus}
+      </div>
       <div className="w-full h-[84px] bg-[#585858] mb-[60px] rounded-full flex items-center justify-evenly">
         <div
           className="bg-[#E08A00] h-[50px] w-[50px] rounded-full flex justify-center items-center cursor-pointer"
-          onClick={handleCallMute}
+          onClick={() => handleCallMute()}
         >
           {callMute === true ? (
             <Icon icon="mingcute:volume-fill" width="24" height="24" />

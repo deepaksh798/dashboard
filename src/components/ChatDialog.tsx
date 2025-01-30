@@ -41,7 +41,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({
   const handleStartCall = async () => {
     try {
       setCallStatus("Connecting...");
-      vapi.start("b091c4fe-079e-479c-83a6-89a3fad5fac4");
+      vapi.start("b091c4fe079e-479c-83a6-89a3fad5fac4");
       setCallStatus("Connected");
 
       vapi.on("call-start", () => setCallStatus("Call Started"));
@@ -80,7 +80,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({
     <Dialog open={open} onOpenChange={() => handleStopCall()}>
       <DialogContent className="bg-[#414141] border-none">
         <div className="flex flex-col items-center gap-4 h-full max-h-[500px]">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-center gap-2">
             <div className="w-[88px] h-20 bg-[#D7FE66] rounded-xl flex justify-center items-center">
               <Icon icon="solar:user-bold" width="34" height="34" />
             </div>

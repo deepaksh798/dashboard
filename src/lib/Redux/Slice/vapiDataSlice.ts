@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface LogState {
+interface userData {
   userDetails: string[];
 }
 
-const initialState: LogState = {
+const initialState: userData = {
   userDetails: [], // Initial empty array
 };
 
@@ -12,7 +12,7 @@ export const logSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    addLogs: (state, action: PayloadAction<string[]>) => {
+    storeUserData: (state, action: PayloadAction<string[]>) => {
       console.log("payload", action.payload);
       state.userDetails = action.payload;
     },
@@ -22,5 +22,5 @@ export const logSlice = createSlice({
   },
 });
 
-export const { addLogs, clearLogs } = logSlice.actions;
+export const { storeUserData, clearLogs } = logSlice.actions;
 export default logSlice.reducer;
