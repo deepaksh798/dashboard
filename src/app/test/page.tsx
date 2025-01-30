@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/Redux/Hook/hook";
 import { fetchData } from "@/lib/Redux/Slice/cardDataSlice";
 import { RootState } from "@/lib/Redux/Store/store";
 import { useEffect, useState } from "react";
-import { vapiPostData } from "@/lib/Redux/Slice/vapiDataiSlice";
+import { vapiPostData } from "@/lib/Redux/Slice/vapiDataSlice";
 
 export default function DisplayData() {
   const dispatch = useAppDispatch();

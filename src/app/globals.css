@@ -27,7 +27,7 @@ body {
 
 /* Target the scrollbar container */
 ::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 6px; /* Width of the scrollbar */
   height: 12px; /* Height of the scrollbar (horizontal) */
 }
 
@@ -125,7 +125,7 @@ body {
   border: none;
 }
 
-/* fc-theme-standard td, .fc-theme-standard th */
+.fc-theme-standard td, .fc-theme-standard th
 .fc-day {
   background-color: transparent !important;
   padding: 5px !important;
@@ -158,6 +158,8 @@ body {
   border-radius: 10px;
   padding: 2px 5px;
   font-size: 12px;
+  font-weight: 400;
+
 }
 
 /* meeting */
