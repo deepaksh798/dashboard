@@ -40,7 +40,7 @@ export default function Contact() {
       <div className="w-full p-8 h-full">
         <FullCalendar
           plugins={[timeGridPlugin, dayGridPlugin]}
-          initialView="dayGridWeek"
+          initialView="dayGridMonth"
           events={events}
           headerToolbar={{
             left: "prev,next today",

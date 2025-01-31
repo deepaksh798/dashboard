@@ -68,7 +68,11 @@ const NavBar = () => {
                 />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-[#414141] text-white border-none">
+            <DropdownMenuContent
+              side="bottom"
+              align="end"
+              className="w-56 bg-[#414141] text-white border-none"
+            >
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-[#666666]" />
               <DropdownMenuGroup>
