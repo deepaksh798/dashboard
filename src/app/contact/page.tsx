@@ -9,7 +9,7 @@ import AppointmentPopup from "@/components/AppointmentPopup";
 import { fetchUserData } from "@/lib/Redux/Slice/vapiDataSlice";
 import { Button } from "@/components/ui/button";
 
-export default function Calendar() {
+export default function Contact() {
   const [openCallAssistant, setOpenCallAssistant] = useState(false);
   const [events, setEvents] = useState<{ title: string; start: Date }[]>([]);
   const [openDialogBox, setOpenDialogBox] = useState<boolean>(false);

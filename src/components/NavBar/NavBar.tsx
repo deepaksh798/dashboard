@@ -68,9 +68,9 @@ const NavBar = () => {
                 />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="w-56 bg-[#414141] text-white border-none">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator className="bg-[#666666]" />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
                   Profile
@@ -89,16 +89,16 @@ const NavBar = () => {
                   <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator className="bg-[#666666]" />
               <DropdownMenuGroup>
                 <DropdownMenuItem>Team</DropdownMenuItem>
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
+                    <DropdownMenuSubContent className="bg-[#414141] text-white border-none">
                       <DropdownMenuItem>Email</DropdownMenuItem>
                       <DropdownMenuItem>Message</DropdownMenuItem>
-                      <DropdownMenuSeparator />
+                      <DropdownMenuSeparator className="bg-[#666666]" />
                       <DropdownMenuItem>More...</DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
@@ -108,11 +108,11 @@ const NavBar = () => {
                   <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator className="bg-[#666666]" />
               <DropdownMenuItem>GitHub</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuItem disabled>API</DropdownMenuItem>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator className="bg-[#666666]" />
               <DropdownMenuItem onClick={() => handleLogout()}>
                 Log out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

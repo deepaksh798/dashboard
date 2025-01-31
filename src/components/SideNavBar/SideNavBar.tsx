@@ -15,7 +15,7 @@ const SideNavBar = () => {
       {/* Sidebar */}
       <aside
         className={
-          "h-full bg-[#141414] transform w-[120px] px-2 select-none flex flex-col justify-between"
+          "h-full bg-[#141414] transform w-[120px] px-2 select-none flex flex-col justify-between overflow-y-auto"
         }
       >
         <div className="flex flex-col items-center mt-9">
@@ -39,17 +39,6 @@ const SideNavBar = () => {
                   />
                 </li>
               </Link>
-              <Link href="" className="flex justify-center">
-                <li
-                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
-                    isActive("/user-management")
-                      ? "bg-[#D7FE66] text-[#141414]"
-                      : ""
-                  }`}
-                >
-                  <Icon icon="mdi:headset" width="24" height="24" />
-                </li>
-              </Link>
               <div className="relative group">
                 <Link href="/assistants" className="flex justify-center">
                   <li
@@ -67,21 +56,25 @@ const SideNavBar = () => {
                   </li>
                 </Link>
                 {/* Tooltip */}
-                <span className="absolute bottom-14 left-1/2 transform -translate-x-1/2 bg-gray-800 text-[#D7FE66] text-sm font-medium px-3 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-[#D7FE66] text-sm font-medium px-3 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   Assistants
                 </span>
               </div>
-              <Link href="" className="flex justify-center">
-                <li
-                  className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
-                    isActive("/user-management")
-                      ? "bg-[#D7FE66] text-[#141414]"
-                      : ""
-                  }`}
-                >
-                  <Icon icon="ic:round-contact-page" width="24" height="24" />
-                </li>
-              </Link>
+              <div className="relative group">
+                <Link href="/contact" className="flex justify-center">
+                  <li
+                    className={`flex items-center justify-center h-11 w-11 rounded-xl ${
+                      isActive("/contact") ? "bg-[#D7FE66] text-[#141414]" : ""
+                    }`}
+                  >
+                    <Icon icon="ic:round-contact-page" width="24" height="24" />
+                  </li>
+                </Link>
+                {/* Tooltip */}
+                <span className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-[#D7FE66] text-sm font-medium px-3 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  Contact
+                </span>
+              </div>
               <Link href="" className="flex justify-center">
                 <li
                   className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
@@ -114,22 +107,6 @@ const SideNavBar = () => {
               </Link>
               {/* //// */}
 
-              <div className="relative group">
-                <Link href="/calendar" className="flex justify-center">
-                  <li
-                    className={`flex items-center justify-center h-11 w-11 rounded-xl ${
-                      isActive("/calendar") ? "bg-[#D7FE66] text-[#141414]" : ""
-                    }`}
-                  >
-                    <Icon icon="uis:calender" width="24" height="24" />
-                  </li>
-                </Link>
-                {/* Tooltip */}
-                <span className="absolute bottom-14 left-1/2 transform -translate-x-1/2 bg-gray-800 text-[#D7FE66] text-sm font-medium px-3 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Calendar
-                </span>
-              </div>
-              {/* ///// */}
               <Link href="" className="flex justify-center">
                 <li
                   className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${
@@ -138,13 +115,11 @@ const SideNavBar = () => {
                       : ""
                   }`}
                 >
-                  <Icon
-                    icon="ic:round-integration-instructions"
-                    width="24"
-                    height="24"
-                  />
+                  <Icon icon="uis:calender" width="24" height="24" />
                 </li>
               </Link>
+              {/* ///// */}
+
               <Link href="" className="flex justify-center">
                 <li
                   className={`flex items-center justify-center h-11 w-11 rounded-xl cursor-not-allowed ${

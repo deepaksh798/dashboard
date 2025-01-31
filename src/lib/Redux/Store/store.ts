@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cardDataReducer from "../Slice/cardDataSlice";
-import vapiiDataSlice from "../Slice/vapiDataSlice";
+import vapiDataSlice from "../Slice/vapiDataSlice";
 
 export const store = configureStore({
   reducer: {
     cardData: cardDataReducer,
-    vapiCustomerData: vapiiDataSlice,
+    vapiCustomerData: vapiDataSlice,
   },
 });
 

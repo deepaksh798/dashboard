@@ -75,9 +75,9 @@ const AIAssistant = ({
     },
   };
   return (
-    <div className="flex flex-col items-center justify-between h-full w-full bg-[#141414]/30 backdrop-blur-lg p-[60px]">
+    <div className="flex flex-col items-center justify-evenly h-full min-w-[428px] w-full bg-[#141414]/30 backdrop-blur-lg">
       {/* <div className="flex flex-col items-center"> */}
-      <div className="flex justify-center items-center w-[376px] bg-[#D7FE66]/60 h-auto rounded-3xl p-7">
+      <div className="flex justify-center items-center w-full max-w-[308px] bg-[#D7FE66]/60 rounded-3xl p-5 xl:p-7">
         <div className="bg-[#D7FE66] rounded-3xl">
           <Image
             src="/call_agent.png"
@@ -88,7 +88,7 @@ const AIAssistant = ({
         </div>
       </div>
 
-      <div>
+      <div className="h-auto">
         <Lottie
           options={options}
           isStopped={!isSpeaking}
@@ -98,7 +98,7 @@ const AIAssistant = ({
         />
       </div>
       <div
-        className={`border py-1 px-3 rounded-full flex gap-2 text-[16px] w-fit ${
+        className={`border py-1 px-3 rounded-full flex gap-2 text-[16px] w-fit mb-3 ${
           ["Call Started", "Connected"].includes(callStatus)
             ? "border-[#1FFF18] text-[#1FFF18]"
             : callStatus === "Connecting..."
@@ -111,7 +111,7 @@ const AIAssistant = ({
         <Icon icon="material-symbols:call" width="24" height="24" />
         {callStatus}
       </div>
-      <div className="w-full h-[84px] bg-[#585858] rounded-full flex items-center justify-evenly">
+      <div className="w-full max-w-[315px] h-[84px] bg-[#585858] rounded-full flex items-center justify-evenly">
         <div
           className="bg-[#E08A00] h-[50px] w-[50px] rounded-full flex justify-center items-center cursor-pointer"
           onClick={() => handleCallMute()}
