@@ -7,10 +7,13 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useAppDispatch } from "@/lib/Redux/Hook/hook";
 import { storeUserData } from "@/lib/Redux/Slice/vapiDataSlice";
 import AppointmentPopup from "@/components/AppointmentPopup";
+import listPlugin from "@fullcalendar/list";
 
 export default function Calendar() {
   const [openCallAssistant, setOpenCallAssistant] = useState(false);
-  const [events, setEvents] = useState<{ title: string; start: Date }[]>([]);
+  const [events, setEvents] = useState<{ title: string; start: Date }[]>([
+    { title: "appointment", start: new Date("Fri Jan 31 2025 11:50:33") },
+  ]);
   const [openDialogBox, setOpenDialogBox] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   // const events = [{ title: "appointment", start: new Date() }];
@@ -70,7 +73,7 @@ export default function Calendar() {
   // console.log("/calendar>data--", data);
 
   return (
-    <div className=" text-white flex h-full">
+    <div className=" text-white flex h-full no-scrollbar overflow-hidden">
       <div className="w-full p-8 h-full">
         <FullCalendar
           plugins={[timeGridPlugin, timeGridPlugin, dayGridPlugin]}

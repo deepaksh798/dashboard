@@ -15,13 +15,13 @@ const Assistants = () => {
     {
       image: "",
       name: "Rajat Saraswat",
-      yourAgent: "Developer",
+      your_agent: "Developer",
       voice: "emily",
     },
     {
       image: "",
       name: "Deepak",
-      yourAgent: "Developer",
+      your_agent: "Developer",
       voice: "james",
     },
   ]);

@@ -60,11 +60,8 @@ const AIAssistant = ({
 
     setCallMute(newMuteState);
     if (newMuteState) {
-      console.log("muting");
-
       vapi.setMuted(false);
     } else {
-      console.log("Un-muting");
       vapi.setMuted(true);
     }
   };
@@ -80,9 +77,14 @@ const AIAssistant = ({
   return (
     <div className="flex flex-col items-center justify-between h-full w-full bg-[#141414]/30 backdrop-blur-lg p-[60px]">
       {/* <div className="flex flex-col items-center"> */}
-      <div className="flex justify-center items-center w-[376px] bg-[#D7FE66]/60 h-[337px] rounded-3xl">
-        <div className="relative h-[268px] w-[264px] bg-[#D7FE66] rounded-3xl">
-          <Image src="/call_agent.png" alt="call-agent" fill />
+      <div className="flex justify-center items-center w-[376px] bg-[#D7FE66]/60 h-auto rounded-3xl p-7">
+        <div className="bg-[#D7FE66] rounded-3xl">
+          <Image
+            src="/call_agent.png"
+            alt="call-agent"
+            height={268}
+            width={264}
+          />
         </div>
       </div>
 
@@ -109,7 +111,7 @@ const AIAssistant = ({
         <Icon icon="material-symbols:call" width="24" height="24" />
         {callStatus}
       </div>
-      <div className="w-full h-[84px] bg-[#585858] mb-[60px] rounded-full flex items-center justify-evenly">
+      <div className="w-full h-[84px] bg-[#585858] rounded-full flex items-center justify-evenly">
         <div
           className="bg-[#E08A00] h-[50px] w-[50px] rounded-full flex justify-center items-center cursor-pointer"
           onClick={() => handleCallMute()}

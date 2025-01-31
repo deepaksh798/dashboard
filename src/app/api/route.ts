@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 const dict: any = {};
 
 export async function POST(req: NextRequest) {
-  console.log("1 here");
-
   try {
     const data = await req.json();
 
@@ -15,7 +13,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    console.log("2 here", data);
     // Store log entries as structured objects
     const logEntries = data.message.toolCalls || [];
     const id = logEntries[0].id;
