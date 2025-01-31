@@ -4,79 +4,42 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import AIAssistant from "@/components/AIAssistant";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useAppDispatch } from "@/lib/Redux/Hook/hook";
-import { storeUserData } from "@/lib/Redux/Slice/vapiDataSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/Redux/Hook/hook";
 import AppointmentPopup from "@/components/AppointmentPopup";
-import listPlugin from "@fullcalendar/list";
+import { fetchUserData } from "@/lib/Redux/Slice/vapiDataSlice";
+import { Button } from "@/components/ui/button";
 
 export default function Calendar() {
   const [openCallAssistant, setOpenCallAssistant] = useState(false);
-  const [events, setEvents] = useState<{ title: string; start: Date }[]>([
-    { title: "appointment", start: new Date("Fri Jan 31 2025 11:50:33") },
-  ]);
+  const [events, setEvents] = useState<{ title: string; start: Date }[]>([]);
   const [openDialogBox, setOpenDialogBox] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  // const events = [{ title: "appointment", start: new Date() }];
 
-  const handleOpenCallAssistant = () => {
-    setOpenCallAssistant(!openCallAssistant);
+  // Select userDetails from Redux
+  const userDetails = useAppSelector(
+    (state) => state.vapiCustomerData.userDetails
+  );
+
+  // handle Fetch User data
+  const handleFetchUserData = () => {
+    dispatch(fetchUserData());
   };
 
-  const handleFetchUserData = async () => {
-    try {
-      const response = await fetch("/api/");
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // Check if data structure is valid
-      const userFunction = data?.data?.[0]?.function;
-      if (!userFunction) {
-        throw new Error("Invalid data format: Missing function key");
-      }
-
-      // Extract dateAndTime
-      const date = userFunction?.arguments?.dateAndTime;
-      if (date) {
-        console.log(date);
-        setEvents([{ title: "appointment", start: new Date(date) }]);
-      }
-
-      // Extract userData and dispatch
-      const userData = userFunction.arguments;
-      if (userData) {
-        console.log("we are here");
-        dispatch(storeUserData(userData)); // Dispatching to Redux
-        setOpenDialogBox(true);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+  // Update events when userDetails changes
+  useEffect(() => {
+    if (userDetails?.dateAndTime) {
+      setEvents([
+        { title: "Appointment", start: new Date(userDetails.dateAndTime) },
+      ]);
+      setOpenDialogBox(true);
     }
-  };
-
-  // useEffect(() => {
-  //   fetch("/api/")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const date = data?.data[0].function?.arguments?.["Date and Time"];
-  //       if (date) {
-  //         console.log(date);
-
-  //         setEvents([{ title: "appointment", start: new Date(date) }]);
-  //       }
-  //     });
-  // }, []);
-
-  // console.log("/calendar>data--", data);
+  }, [userDetails]);
 
   return (
-    <div className=" text-white flex h-full no-scrollbar overflow-hidden">
+    <div className="text-white flex h-full no-scrollbar overflow-hidden">
       <div className="w-full p-8 h-full">
         <FullCalendar
-          plugins={[timeGridPlugin, timeGridPlugin, dayGridPlugin]}
+          plugins={[timeGridPlugin, dayGridPlugin]}
           initialView="dayGridWeek"
           events={events}
           headerToolbar={{
@@ -85,10 +48,13 @@ export default function Calendar() {
             right: "dayGridMonth,timeGridWeek,timeGridDay",
           }}
         />
+        {/* <Button onClick={handleFetchUserData}>Click</Button> */}
       </div>
       <div className="w-auto h-full">
         <AIAssistant
-          handleOpenCallAssistant={handleOpenCallAssistant}
+          handleOpenCallAssistant={() =>
+            setOpenCallAssistant(!openCallAssistant)
+          }
           handleFetchUserData={handleFetchUserData}
         />
       </div>
